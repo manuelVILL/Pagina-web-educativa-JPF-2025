@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechoCare - Proyecto Educativo Tecnológico</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(56, 142, 60, 0.9)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="circuit" patternUnits="userSpaceOnUse" width="100" height="100"><path d="M0 0h100v100H0z" fill="%23f0f8f0"/><circle cx="20" cy="20" r="2" fill="%23388e3c"/><circle cx="80" cy="80" r="2" fill="%23388e3c"/><path d="M20 20h60v60" stroke="%23388e3c" stroke-width="1" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(%23circuit)"/></svg>');
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(247, 147, 30, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(247, 147, 30, 0.6);
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            border-radius: 2px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f8fdf8, #ffffff);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #e8f5e8;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.2);
+            border-color: #2e7d32;
+        }
+
+        .card h3 {
+            color: #2e7d32;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Character Section */
+        .character-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .character-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .character-info {
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .character-info h3 {
+            color: #2e7d32;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .character-image {
+            position: relative;
+        }
+
+        .character-image img {
+            width: 250px;
+            height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .character-image:hover img {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(135deg, #2e7d32, #388e3c);
+            color: white;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            color: white;
+        }
+
+        .form-section h2::after {
+            background: linear-gradient(135deg, #66bb6a, #81c784);
+        }
+
+        .form-embed {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Campaign Cards */
+        .campaign-card {
+            background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .campaign-card:hover {
+            border-color: #2e7d32;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.2);
+        }
+
+        .campaign-card img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #81c784;
+        }
+
+        /* Footer */
+        footer {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 100px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 100px);
+                background: #2e7d32;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .character-container {
+                flex-direction: column;
+            }
+
+            .character-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://storage.googleapis.com/uploaded/STK-20250810-WA0008.png" alt="Logo de TechoCare" />
+                <h1>TechoCare</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#proyecto">Proyecto</a></li>
+                <li><a href="#registro">Registro de Fallas</a></li>
+                <li><a href="#campanas">Campañas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container">
+                <h1>TechoCare</h1>
+                <p>Promoviendo el uso responsable de equipos tecnológicos mediante campañas educativas y gestión inteligente de mantenimiento</p>
+                <a href="#registro" class="cta-button">
+                    <i class="fas fa-tools"></i> Reportar Falla
+                </a>
+            </div>
+        </section>
+
+        <section id="proyecto" class="section scroll-animate">
+            <div class="container">
+                <h2><i class="fas fa-lightbulb"></i> Información del Proyecto</h2>
+                
+                <div class="character-section">
+                    <div class="character-container">
+                        <div class="character-image">
+                            <img src="https://storage.googleapis.com/uploaded/tecnico_mantenimiento_refinado.jpg" alt="Personaje animado de técnico sonriente con cabello castaño, ojos azules, uniforme azul marino con escudo institucional, cinturón con herramientas, sosteniendo una llave inglesa, estilo cartoon amigable y profesional" />
+                        </div>
+                        <div class="character-info">
+                            <h3>¡Conoce a nuestro Técnico Virtual!</h3>
+                            <p>Nuestro amigable técnico virtual te acompañará en todo el process de cuidado y mantenimiento de los equipos tecnológicos de la institución.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Objetivo Principal</h3>
+                        <p>Promover el uso responsable de los equipos en la sede uno mediante campañas educativas y gestionar el mantenimiento mediante un sistema digital de recepción y clasificación de fallas con herramientas digitales.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3>¿Qué vamos a hacer?</h3>
+                        <p>Implementaremos campañas pedagógicas para crear conciencia sobre el cuidado tecnológico y desarrollaremos un sistema eficiente de atención a solicitudes de mantenimiento.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>¿Cómo lo haremos?</h3>
+                        <p>A través del diseño de campañas visuales atractivas, formularios digitales para reportar fallas, un buzón digital eficiente y un cronograma organizado de atención.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Resultado Esperado</h3>
+                        <p>Crear una cultura sólida de cuidado tecnológico en la institución y establecer un sistema funcional de reporte y seguimiento de mantenimientos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="registro" class="form-section scroll-animate">
+            <div class="container">
+                <h2><i class="fas fa-exclamation-triangle"></i> Sistema de Registro de Fallas</h2>
+                <p>Reporta cualquier problema técnico de manera rápida y eficiente. Nuestro sistema clasificará y gestionará tu solicitud para una atención oportuna.</p>
+                
+                <div class="form-embed">
+                    <h3 style="color: #2e7d32; margin-bottom: 1rem;">
+                        <i class="fas fa-clipboard-list"></i> Formulario de Reporte de Fallas
+                    </h3>
+                    <p style="color: #666; margin-bottom: 2rem;">
+                        Completa el siguiente formulario para reportar cualquier falla en los equipos tecnológicos de la institución.
+                    </p>
+                    
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScKN8_naCGieJzcSCUJ5-VwNasd46WIDmsV5Iw5mKyOdSioQg/viewform?usp=header" 
+                       target="_blank" 
+                       class="cta-button" 
+                       style="background: linear-gradient(135deg, #2e7d32, #388e3c); margin: 1rem;">
+                        <i class="fas fa-external-link-alt"></i> Abrir Formulario de Reporte
+                    </a>
+                    
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #2e7d32;">
+                        <h4 style="color: #2e7d32; margin-bottom: 1rem;">
+                            <i class="fas fa-info-circle"></i> Información importante:
+                        </h4>
+                        <ul style="text-align: left; color: #666; line-height: 1.8;">
+                            <li>El formulario se abrirá en una nueva ventana</li>
+                            <li>Describe detalladamente el problema encontrado</li>
+                            <li>Incluye la ubicación exacta del equipo</li>
+                            <li>Recibirás confirmación de tu reporte</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid" style="margin-top: 3rem;">
+                    <div class="card" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3);">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #66bb6a, #81c784);">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 style="color: white;">Respuesta Rápida</h3>
+                        <p style="color: rgba(255,255,255,0.9);">Tu reporte será procesado y clasificado automáticamente para una atención prioritaria según la urgencia.</p>
+                    </div>
+                    
+                    <div class="card" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3);">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #66bb6a, #81c784);">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 style="color: white;">Seguimiento Seguro</h3>
+                        <p style="color: rgba(255,255,255,0.9);">Mantén el seguimiento de tu reporte de forma segura y recibe actualizaciones del estado de la reparación.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="campanas" class="section scroll-animate">
+            <div class="container">
+                <h2><i class="fas fa-megaphone"></i> Campañas Educativas Digitales</h2>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                    Descubre nuestros recursos educativos diseñados para promover el uso responsable de la tecnología
+                </p>
+                
+                <div class="grid">
+                    <div class="campaign-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5af216fe-44dc-447a-a2d5-6251b4804e32.png" alt="Infografía colorida mostrando estudiantes cuidando computadoras con tips de mantenimiento, iconos de limpieza y cuidado, fondo verde suave con elementos tecnológicos" />
+                        <h3><i class="fas fa-laptop"></i> Cuidado de Equipos</h3>
+                        <p>Aprende las mejores prácticas para mantener los equipos en perfecto estado y prolongar su vida útil.</p>
+                    </div>
+                    
+                    <div class="campaign-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f00bdacd-ed2f-4641-9eda-b5daf3cdf055.png" alt="Poster educativo con reglas de uso responsable de tecnología, iconos de buenas prácticas, estudiantes siguiendo normas, diseño moderno y atractivo" />
+                        <h3><i class="fas fa-users"></i> Uso Responsable</h3>
+                        <p>Conoce las normas y buenas prácticas para un uso responsable y eficiente de los recursos tecnológicos.</p>
+                    </div>
+                    
+                    <div class="campaign-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b1c456a1-704f-4f9b-b28f-8fbc4fca4dfd.png" alt="Guía visual de prevención de daños con ejemplos de qué hacer y qué no hacer, ilustraciones claras y educativas, colores institucionales" />
+                        <h3><i class="fas fa-shield-alt"></i> Prevención de Daños</h3>
+                        <p>Identifica los riesgos más comunes y aprende cómo prevenir daños en los equipos tecnológicos.</p>
+                    </div>
+                    
+                    <div class="campaign-card">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8b2945ee-a07d-46b2-b670-264de83e25e6.png" alt="Material didáctico sobre seguridad digital, contraseñas seguras, protección de datos, iconos de seguridad, diseño profesional y educativo" />
+                        <h3><i class="fas fa-lock"></i> Seguridad Digital</h3>
+                        <p>Mantén la información segura y aprende sobre las mejores prácticas de seguridad informática.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, #e8f5e8, #f1f8e9); border-radius: 15px; border: 2px solid #2e7d32;">
+                    <h3 style="color: #2e7d32; margin-bottom: 1rem;">
+                        <i class="fas fa-download"></i> Recursos Descargables
+                    </h3>
+                    <p style="margin-bottom: 2rem; color: #666;">
+                        Próximamente tendremos disponibles guías, manuales y material educativo para descargar
+                    </p>
+                    <button class="cta-button" style="background: linear-gradient(135deg, #2e7d32, #388e3c);" disabled>
+                        <i class="fas fa-clock"></i> Próximamente Disponible
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact-section scroll-animate">
+            <div class="container">
+                <h2><i class="fas fa-phone"></i> Contacto</h2>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem;">
+                    ¿Tienes dudas o necesitas ayuda? Contáctanos a través de los siguientes medios
+                </p>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Correo Electrónico</h3>
+                        <p>juanmanuelvillamizar59@gmail.com</p>
+                        <a href="mailto:juanmanuelvillamizar59@gmail.com" class="cta-button" style="margin-top: 1rem; font-size: 0.9rem;">
+                            <i class="fas fa-paper-plane"></i> Enviar Email
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Teléfono</h3>
+                        <p>+57 3142678451</p>
+                        <a href="tel:+573142678451" class="cta-button" style="margin-top: 1rem; font-size: 0.9rem;">
+                            <i class="fas fa-phone"></i> Llamar
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Horario de Atención</h3>
+                        <p>Lunes a Viernes<br>7:00 AM - 5:00 PM</p>
+                        <div class="cta-button" style="margin-top: 1rem; font-size: 0.9rem; background: rgba(255,255,255,0.2);">
+                            <i class="fas fa-calendar"></i> Horario Académico
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 TechoCare - Proyecto Educativo Tecnológico. Todos los derechos reservados.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">
+                <i class="fas fa-heart" style="color: #ff6b35;"></i> 
+                Desarrollado con dedicación para el cuidado tecnológico institucional
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close mobile menu if open
+                    const navLinks = document.querySelector('.nav-links');
+                    const hamburger = document.querySelector('.hamburger');
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.scroll-animate');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Add active class to navigation based on scroll position
+        function updateActiveNavigation() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            handleScrollAnimations();
+            updateActiveNavigation();
+        });
+
+        window.addEventListener('load', () => {
+            handleScrollAnimations();
+            updateActiveNavigation();
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Form button interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            const formButton = document.querySelector('a[href*="forms.gle"]');
+            if (formButton) {
+                formButton.addEventListener('click', function() {
+                    // Add a small delay to show interaction
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            }
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                setTimeout(() => {
+                    typeWriter(heroTitle, originalText, 150);
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
